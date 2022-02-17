@@ -40,18 +40,18 @@ There are three public properties ready for your events: `$before`, `$after`, an
 
 ```php
  /**
-     * Event to dispatch before action starts.
-     *
-     * @var string
-     */
-    public $before = ChuckNorrisWillBlowYourMind::class;
+  * Event to dispatch before action starts.
+  *
+  * @var string
+  */
+ public $before = ChuckNorrisWillBlowYourMind::class;
 
-    /**
-     * Event to dispatch after action completes.
-     *
-     * @var string
-     */
-    public $after = ChuckNorrisBlewYourMind::class;
+ /**
+  * Event to dispatch after action completes.
+  *
+  * @var string
+  */
+ public $after = ChuckNorrisBlewYourMind::class;
 ```
 
 Notice we did not set the `$failed` property as Chuck Norris doesn't fail.
@@ -72,9 +72,9 @@ ChuckNorris::actWhen($isChuckNorrisMighty, $data);
 ChuckNorris::actUnless($isChuckNorrisPuny, $data);
 ```
 
-The `$data` is passed into the action's constructor. You can pass as many arguments as is needed in your use case.
+The `$data` is passed into the action's constructor. You can pass as many arguments as needed in your use case.
 
-The second two methods, `actWhen` and `actUnless` require a condition as the first variable. These work like other Laravel methods such as `throw_if()` and `throw_unless()`. And once again, you can pass and many arguments as is needed for your action after the condition.
+The second two methods, `actWhen` and `actUnless` require a condition as the first variable. These work like other Laravel methods such as `throw_if()` and `throw_unless()`. Finally, you can pass as many arguments as needed for your action after the condition.
 
 ### Facade
 
@@ -88,7 +88,7 @@ Action::actWhen($isChuckNorrisMighty, new ChuckNorris($data));
 Action::actUnless($isChuckNorrisPuny, new ChuckNorris($data));
 ```
 
-The usage is nearly identical to calling the methods directly on the action as mentioned in the section above. The benefit here is that you can easily test actions using `Action::shouldReceive('act')` or whichever method you used!
+The usage is nearly identical to calling the methods directly on the action as mentioned in the section above. The benefit here is that you can easily test actions using `Action::shouldReceive('act')`, `Action::shouldReceive('actWhen')` or `Action::shouldReceive('actUnless')`.
 
 ### Helpers
 
