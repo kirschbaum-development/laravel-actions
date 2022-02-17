@@ -6,10 +6,10 @@ jobs:
     strategy:
       matrix:
         php: [7.2, 7.3, 7.4, 8.0, 8.1]
-    name: PHP ${{ matrix.os }}
+    name: PHP ${{ matrix.php }}
     runs-on: ubuntu-latest
     container:
-      image: kirschbaumdevelopment/laravel-test-runner:${{ matrix.os }}
+      image: kirschbaumdevelopment/laravel-test-runner:${{ matrix.php }}
 
     steps:
       - uses: actions/checkout@v1
