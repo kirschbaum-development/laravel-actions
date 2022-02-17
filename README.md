@@ -100,6 +100,16 @@ actWhen($isChuckNorrisMighty, new ChuckNorris($data));
 actUnless($isChuckNorrisPuny, new ChuckNorris($data));
 ```
 
+## Last thoughts
+
+If for some reason you'd prefer not to use the cool eventing system, that's fine. Just call your action like this:
+
+```php
+new ChuckNorris($data);
+```
+
+This will bypass all the magic and call the invoke method automagically, letting Chuck do his thing without anyone knowing, but why? ;)
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
