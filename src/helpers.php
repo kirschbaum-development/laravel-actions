@@ -19,7 +19,7 @@ if (! function_exists('act')) {
     }
 }
 
-if (! function_exists('actWhen')) {
+if (! function_exists('act_when')) {
     /**
      * Initiate the given action if the given condition is true.
      *
@@ -30,13 +30,13 @@ if (! function_exists('actWhen')) {
      *
      * @return mixed|void
      */
-    function actWhen($condition, Actionable $action)
+    function act_when($condition, Actionable $action)
     {
         return (new Action())->actWhen($condition, $action);
     }
 }
 
-if (! function_exists('actUnless')) {
+if (! function_exists('act_unless')) {
     /**
      * Initiate the given action if the given condition is false.
      *
@@ -47,7 +47,7 @@ if (! function_exists('actUnless')) {
      *
      * @return mixed|void
      */
-    function actUnless($condition, Actionable $action)
+    function act_unless($condition, Actionable $action)
     {
         return (new Action())->actUnless($condition, $action);
     }

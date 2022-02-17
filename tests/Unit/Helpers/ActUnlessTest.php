@@ -10,7 +10,7 @@ class ActUnlessTest extends TestCase
     public function testActUnlessRunsIfFalsy()
     {
         // Act.
-        $response = actUnless(false, new ActionWithAllEvents());
+        $response = act_unless(false, new ActionWithAllEvents());
 
         // Assert.
         $this->assertTrue($response);
@@ -19,7 +19,7 @@ class ActUnlessTest extends TestCase
     public function testActUnlessRejectsIfTruthy()
     {
         // Act.
-        $response = actUnless(true, new ActionWithAllEvents());
+        $response = act_unless(true, new ActionWithAllEvents());
 
         // Assert.
         $this->assertNull($response);

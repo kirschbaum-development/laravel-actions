@@ -10,7 +10,7 @@ class ActWhenTest extends TestCase
     public function testActWhenRunsIfTruthy()
     {
         // Act.
-        $response = actWhen(true, new ActionWithAllEvents());
+        $response = act_when(true, new ActionWithAllEvents());
 
         // Assert.
         $this->assertTrue($response);
@@ -19,7 +19,7 @@ class ActWhenTest extends TestCase
     public function testActWhenRejectsIfFalsy()
     {
         // Act.
-        $response = actWhen(false, new ActionWithAllEvents());
+        $response = act_when(false, new ActionWithAllEvents());
 
         // Assert.
         $this->assertNull($response);

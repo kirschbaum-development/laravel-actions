@@ -96,8 +96,8 @@ The package also has a few handy helpers to get Chuck in action. Here's the synt
 
 ```php
 act(new ChuckNorris($data));
-actWhen($isChuckNorrisMighty, new ChuckNorris($data));
-actUnless($isChuckNorrisPuny, new ChuckNorris($data));
+act_when($isChuckNorrisMighty, new ChuckNorris($data));
+act_unless($isChuckNorrisPuny, new ChuckNorris($data));
 ```
 
 ## Last thoughts
