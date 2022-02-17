@@ -1,0 +1,52 @@
+{
+    "name": "kirschbaum-development/actions",
+    "description": "A test package for intercepting email sent from Laravel",
+    "keywords": [
+        "laravel",
+        "actions",
+        "events"
+    ],
+    "homepage": "https://github.com/kirschbaum-development/actions",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Brandon Ferens",
+            "email": "brandon@kirschbaumdevelopment.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.2.5",
+        "laravel/framework": ">=6.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.6",
+        "orchestra/testbench": ">=3.5",
+        "phpunit/phpunit": ">=6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kirschbaum\\Actions\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Kirschbaum\\Actions\\ActionsServiceProvider"
+			],
+			"aliases": {
+				"Action": "Kirschbaum\\Actions\\Facades\\Action"
+			}
+		}
+	}
+}
