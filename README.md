@@ -72,7 +72,7 @@ ChuckNorris::actWhen($isChuckNorrisMighty, $data);
 ChuckNorris::actUnless($isChuckNorrisPuny, $data);
 ```
 
-The `$data` is passed into the action's constructor. You can pass as many arguments as is needed in your use case.
+The `$data` is passed into the action's constructor. You can pass as many arguments as needed in your use case.
 
 The second two methods, `actWhen` and `actUnless` require a condition as the first variable. These work like other Laravel methods such as `throw_if()` and `throw_unless()`. Finally, you can pass as many arguments as needed for your action after the condition.
 
