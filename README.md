@@ -3,9 +3,9 @@
 # Laravel Actions
 ### A package for handling simple actions with eventing.
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/kirschbaum-development/actions.svg)](https://packagist.org/packages/kirschbaum-development/actions)
-[![Total Downloads](https://img.shields.io/packagist/dt/kirschbaum-development/actions.svg)](https://packagist.org/packages/kirschbaum-development/actions)
-[![Actions Status](https://github.com/kirschbaum-development/actions/workflows/CI/badge.svg)](https://github.com/kirschbaum-development/actions/actions)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/kirschbaum-development/laravel-actions.svg)](https://packagist.org/packages/kirschbaum-development/laravel-actions)
+[![Total Downloads](https://img.shields.io/packagist/dt/kirschbaum-development/laravel-actions.svg)](https://packagist.org/packages/kirschbaum-development/laravel-actions)
+[![Actions Status](https://github.com/kirschbaum-development/laravel-actions/workflows/CI/badge.svg)](https://github.com/kirschbaum-development/laravel-actions/actions)
 
 Laravel Actions are simple job-like classes that don't interact with the queue. Actions are great to leverage when you have some simple functionality that you need to reuse. But the real power is with eventing.
 
@@ -23,7 +23,7 @@ This testing package requires Laravel 6.0 or higher.
 ## Installation
 
 ```bash
-composer require kirschbaum-development/actions
+composer require kirschbaum-development/laravel-actions
 ```
 
 ## Creating and Preparing the Action
