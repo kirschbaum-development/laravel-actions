@@ -36,7 +36,7 @@ php artisan make:action ChuckNorris
 
 This will create a new action class at `app/Actions/ChuckNorris.php`.
 
-There are three public properties ready for your events: `$before`, `$after` and `$failed`. You can set the ones you need and remove the others.
+There are three public properties ready for your events: `$before`, `$after`, and `$failed`. You can set the ones you need and remove the others.
 
 ```php
  /**
