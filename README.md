@@ -125,6 +125,7 @@ If you discover any security related issues, please email brandon@kirschbaumdeve
 ## Credits
 
 - [Brandon Ferens](https://github.com/brandonferens)
+- Inspired in part by [Luke Downing's](https://github.com/lukeraymonddowning) Laracon Online Winter '22 [talk](https://www.youtube.com/watch?v=0Rq-yHAwYjQ&t=1678s). 
 
 ## Sponsorship
 
