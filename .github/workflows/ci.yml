@@ -2,6 +2,24 @@ on: push
 name: CI
 
 jobs:
+  phpunit-php72:
+    name: PHP 7.2
+    runs-on: ubuntu-latest
+    container:
+      image: kirschbaumdevelopment/laravel-test-runner:7.2
+
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Install composer dependencies
+        run: |
+          composer install --prefer-dist --no-interaction --no-scripts
+
+      - name: Run Testsuite
+        run: vendor/bin/phpunit tests/
+
   phpunit-php73:
     name: PHP 7.3
     runs-on: ubuntu-latest
@@ -43,6 +61,24 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: kirschbaumdevelopment/laravel-test-runner:8.0
+
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Install composer dependencies
+        run: |
+          composer install --prefer-dist --no-interaction --no-scripts
+
+      - name: Run Testsuite
+        run: vendor/bin/phpunit tests/
+
+  phpunit-php81:
+    name: PHP 8.1
+    runs-on: ubuntu-latest
+    container:
+      image: kirschbaumdevelopment/laravel-test-runner:8.1
 
     steps:
       - uses: actions/checkout@v1

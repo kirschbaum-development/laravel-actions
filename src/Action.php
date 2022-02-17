@@ -17,7 +17,7 @@ class Action
      *
      * @return mixed
      */
-    public function act(Actionable $action): mixed
+    public function act(Actionable $action)
     {
         return $this->handle($action);
     }
@@ -49,7 +49,7 @@ class Action
      *
      * @return mixed
      */
-    public function actUnless($condition, Actionable $action): mixed
+    public function actUnless($condition, Actionable $action)
     {
         return $this->actIf(! $condition, $action);
     }
