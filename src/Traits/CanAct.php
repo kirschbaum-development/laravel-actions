@@ -31,9 +31,9 @@ trait CanAct
      *
      * @return mixed
      */
-    public static function actIf($condition, ...$arguments)
+    public static function actWhen($condition, ...$arguments)
     {
-        return (new Action())->actIf($condition, new static(...$arguments));
+        return (new Action())->actWhen($condition, new static(...$arguments));
     }
 
     /**

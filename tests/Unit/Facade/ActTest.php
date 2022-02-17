@@ -1,22 +1,14 @@
 <?php
 
-namespace Tests;
+namespace Tests\Unit\Facade;
 
+use Tests\TestCase;
 use Kirschbaum\Actions\Facades\Action;
 use Tests\Fixtures\ActionWithAllEvents;
 
 class ActTest extends TestCase
 {
-    public function testActFromCanActTrait()
-    {
-        // Act.
-        $response = ActionWithAllEvents::act();
-
-        // Assert.
-        $this->assertTrue($response);
-    }
-
-    public function testActFromFacade()
+    public function testAct()
     {
         // Act.
         $response = Action::act(new ActionWithAllEvents());

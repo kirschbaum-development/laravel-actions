@@ -1,7 +1,8 @@
 <?php
 
-namespace Tests;
+namespace Tests\Unit;
 
+use Tests\TestCase;
 use Illuminate\Support\Facades\Event;
 use Tests\Fixtures\Events\AfterEvent;
 use Tests\Fixtures\Events\BeforeEvent;

@@ -15,7 +15,7 @@ class Action
      *
      * @throws Throwable
      *
-     * @return mixed
+     * @return mixed|void
      */
     public function act(Actionable $action)
     {
@@ -32,7 +32,7 @@ class Action
      *
      * @return mixed|void
      */
-    public function actIf($condition, Actionable $action)
+    public function actWhen($condition, Actionable $action)
     {
         if ($condition) {
             return $this->act($action);
@@ -47,11 +47,11 @@ class Action
      *
      * @throws Throwable
      *
-     * @return mixed
+     * @return mixed|void
      */
     public function actUnless($condition, Actionable $action)
     {
-        return $this->actIf(! $condition, $action);
+        return $this->actWhen(! $condition, $action);
     }
 
     /**

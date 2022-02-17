@@ -17,17 +17,21 @@
     ],
     "require": {
         "php": ">=7.2.5",
-        "laravel/framework": ">=6.0"
+        "illuminate/events": ">=6.0"
     },
     "require-dev": {
+		"codedungeon/phpunit-result-printer": "^0.30.1",
         "friendsofphp/php-cs-fixer": "^3.3.2|^3.6",
-        "orchestra/testbench": ">=3.5",
-        "phpunit/phpunit": ">=6.0"
+        "orchestra/testbench": "^4.18|^5.20|^6.24|^7.0",
+        "phpunit/phpunit": "^8.5.8|^9.3.3|^9.5.10"
     },
     "autoload": {
         "psr-4": {
             "Kirschbaum\\Actions\\": "src/"
-        }
+        },
+		"files": [
+			"src/helpers.php"
+		]
     },
     "autoload-dev": {
         "psr-4": {
