@@ -1,12 +1,12 @@
 {
-    "name": "kirschbaum-development/actions",
-    "description": "A test package for intercepting email sent from Laravel",
+    "name": "kirschbaum-development/laravel-actions",
+    "description": "A Laravel package for handling actions and events",
     "keywords": [
         "laravel",
         "actions",
         "events"
     ],
-    "homepage": "https://github.com/kirschbaum-development/actions",
+    "homepage": "https://github.com/kirschbaum-development/laravel-actions",
     "license": "MIT",
     "authors": [
         {
