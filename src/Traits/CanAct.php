@@ -4,6 +4,7 @@ namespace Kirschbaum\Actions\Traits;
 
 use Throwable;
 use Kirschbaum\Actions\Action;
+use Kirschbaum\Actions\Contracts\Actionable;
 
 trait CanAct
 {
@@ -18,7 +19,7 @@ trait CanAct
      */
     public static function act(...$arguments)
     {
-        return (new Action())->act(new static(...$arguments));
+        return app(Actionable::class)->act(new static(...$arguments));
     }
 
     /**
@@ -33,9 +34,7 @@ trait CanAct
      */
     public static function actWhen($condition, ...$arguments)
     {
-        if ($condition) {
-            return (new Action())->act(new static(...$arguments));
-        }
+        return app(Actionable::class)->actWhen($condition, new static(...$arguments));
     }
 
     /**
@@ -50,6 +49,33 @@ trait CanAct
      */
     public static function actUnless($condition, ...$arguments)
     {
-        return static::actWhen(! $condition, ...$arguments);
+        return app(Actionable::class)->actUnless($condition, new static(...$arguments));
+    }
+
+    /**
+     * Handle failure of the action.
+     *
+     * @throws Throwable
+     *
+     * @return mixed
+     */
+    public function failed(Throwable $exception)
+    {
+        if ($this->hasCustomException()) {
+            throw new $this->exception();
+        }
+
+        throw $exception;
+    }
+
+    /**
+     * Check if action has a custom exception.
+     *
+     * @return bool
+     */
+    protected function hasCustomException(): bool
+    {
+        return property_exists($this, 'exception')
+            && class_exists($this->exception);
     }
 }

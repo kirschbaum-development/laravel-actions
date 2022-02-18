@@ -70,7 +70,7 @@ class Action
         try {
             $response = $action();
         } catch (Throwable $throwable) {
-            $this->handleFailure($action, $throwable);
+            $action->failed($throwable);
 
             return;
         }

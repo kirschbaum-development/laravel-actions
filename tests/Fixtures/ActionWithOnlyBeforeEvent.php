@@ -19,21 +19,6 @@ class ActionWithOnlyBeforeEvent implements Actionable
     public $before = BeforeEvent::class;
 
     /**
-     * @var bool
-     */
-    protected $fail;
-
-    /**
-     * Create a new action instance.
-     *
-     * @param bool $fail
-     */
-    public function __construct(bool $fail = false)
-    {
-        $this->fail = $fail;
-    }
-
-    /**
      * Execute the action.
      *
      * @throws Throwable
@@ -42,9 +27,6 @@ class ActionWithOnlyBeforeEvent implements Actionable
      */
     public function __invoke()
     {
-        // This is just for testing failure.
-        throw_if($this->fail, Throwable::class);
-
         return true;
     }
 }

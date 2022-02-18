@@ -4,6 +4,7 @@ namespace Kirschbaum\Actions;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
+use Kirschbaum\Actions\Contracts\Actionable;
 use Kirschbaum\Actions\Commands\MakeActionCommand;
 
 class ActionsServiceProvider extends ServiceProvider
@@ -29,7 +30,13 @@ class ActionsServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Facade binding.
         App::bind('actions', function () {
+            return new Action();
+        });
+
+        // Interface binding.
+        App::bind(Actionable::class, function () {
             return new Action();
         });
     }

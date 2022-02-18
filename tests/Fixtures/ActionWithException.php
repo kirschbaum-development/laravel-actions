@@ -4,19 +4,12 @@ namespace Tests\Fixtures;
 
 use Throwable;
 use Kirschbaum\Actions\Traits\CanAct;
-use Tests\Fixtures\Events\AfterEvent;
 use Kirschbaum\Actions\Contracts\Actionable;
+use Kirschbaum\Actions\Exceptions\ActionFailedException;
 
-class ActionWithOnlyAfterEvent implements Actionable
+class ActionWithException implements Actionable
 {
     use CanAct;
-
-    /**
-     * Event to dispatch after action completes.
-     *
-     * @var string
-     */
-    public $after = AfterEvent::class;
 
     /**
      * Execute the action.
@@ -27,6 +20,6 @@ class ActionWithOnlyAfterEvent implements Actionable
      */
     public function __invoke()
     {
-        return true;
+        throw new ActionFailedException();
     }
 }
