@@ -33,7 +33,9 @@ trait CanAct
      */
     public static function actWhen($condition, ...$arguments)
     {
-        return (new Action())->actWhen($condition, new static(...$arguments));
+        if ($condition) {
+            return (new Action())->act(new static(...$arguments));
+        }
     }
 
     /**
@@ -48,6 +50,6 @@ trait CanAct
      */
     public static function actUnless($condition, ...$arguments)
     {
-        return (new Action())->actUnless($condition, new static(...$arguments));
+        return static::actWhen(! $condition, ...$arguments);
     }
 }
