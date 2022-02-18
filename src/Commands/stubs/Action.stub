@@ -24,13 +24,6 @@ class DummyClass implements Actionable
     public $after = '';
 
     /**
-     * Event to dispatch if action throws an exception.
-     *
-     * @var string
-     */
-    public $failed = '';
-
-    /**
      * Create a new action instance.
      *
      * @return void
