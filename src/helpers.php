@@ -1,6 +1,5 @@
 <?php
 
-use Kirschbaum\Actions\Action;
 use Kirschbaum\Actions\Contracts\Actionable;
 
 if (! function_exists('act')) {
@@ -15,7 +14,7 @@ if (! function_exists('act')) {
      */
     function act(Actionable $action)
     {
-        return (new Action())->act($action);
+        return app(Actionable::class)->act($action);
     }
 }
 
@@ -32,7 +31,7 @@ if (! function_exists('act_when')) {
      */
     function act_when($condition, Actionable $action)
     {
-        return (new Action())->actWhen($condition, $action);
+        return app(Actionable::class)->actWhen($condition, $action);
     }
 }
 
@@ -49,6 +48,6 @@ if (! function_exists('act_unless')) {
      */
     function act_unless($condition, Actionable $action)
     {
-        return (new Action())->actUnless($condition, $action);
+        return app(Actionable::class)->actUnless($condition, $action);
     }
 }

@@ -4,9 +4,8 @@ namespace Tests\Fixtures;
 
 use Throwable;
 use Kirschbaum\Actions\Traits\CanAct;
-use Kirschbaum\Actions\Contracts\Actionable;
 
-class ActionWithNoEvents implements Actionable
+class ActionWithoutInterface
 {
     use CanAct;
 
@@ -19,6 +18,6 @@ class ActionWithNoEvents implements Actionable
      */
     public function __invoke()
     {
-        return true;
+        // We will never get here.
     }
 }

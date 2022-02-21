@@ -5,12 +5,11 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Event;
 use Tests\Fixtures\Events\AfterEvent;
+use Tests\Fixtures\ActionWithNoEvents;
 use Tests\Fixtures\Events\BeforeEvent;
-use Tests\Fixtures\Events\FailedEvent;
 use Tests\Fixtures\ActionWithAllEvents;
 use Tests\Fixtures\ActionWithOnlyAfterEvent;
 use Tests\Fixtures\ActionWithOnlyBeforeEvent;
-use Tests\Fixtures\ActionWithOnlyFailedEvent;
 
 class ActionEventingTest extends TestCase
 {
@@ -25,22 +24,6 @@ class ActionEventingTest extends TestCase
         // Assert.
         Event::assertDispatched(BeforeEvent::class);
         Event::assertDispatched(AfterEvent::class);
-        Event::assertNotDispatched(FailedEvent::class);
-    }
-
-    public function testBeforeAndFailedEventsDispatched()
-    {
-        // Assemble.
-        Event::fake();
-
-        // Act.
-        // Passing `true` tells the action that the test should throw an exception.
-        ActionWithAllEvents::act(true);
-
-        // Assert.
-        Event::assertDispatched(BeforeEvent::class);
-        Event::assertNotDispatched(AfterEvent::class);
-        Event::assertDispatched(FailedEvent::class);
     }
 
     public function testOnlyBeforeEventDispatched()
@@ -54,22 +37,6 @@ class ActionEventingTest extends TestCase
         // Assert.
         Event::assertDispatched(BeforeEvent::class);
         Event::assertNotDispatched(AfterEvent::class);
-        Event::assertNotDispatched(FailedEvent::class);
-    }
-
-    public function testOnlyBeforeEventDispatchedIfItFails()
-    {
-        // Assemble.
-        Event::fake();
-
-        // Act.
-        // Passing `true` tells the action that the test should throw an exception.
-        ActionWithOnlyBeforeEvent::act(true);
-
-        // Assert.
-        Event::assertDispatched(BeforeEvent::class);
-        Event::assertNotDispatched(AfterEvent::class);
-        Event::assertNotDispatched(FailedEvent::class);
     }
 
     public function testOnlyAfterEventDispatched()
@@ -83,50 +50,18 @@ class ActionEventingTest extends TestCase
         // Assert.
         Event::assertNotDispatched(BeforeEvent::class);
         Event::assertDispatched(AfterEvent::class);
-        Event::assertNotDispatched(FailedEvent::class);
     }
 
-    public function testOnlyAfterEventNotDispatchedIfItFails()
+    public function testNoEventsDispatched()
     {
         // Assemble.
         Event::fake();
 
         // Act.
-        // Passing `true` tells the action that the test should throw an exception.
-        ActionWithOnlyAfterEvent::act(true);
+        ActionWithNoEvents::act();
 
         // Assert.
         Event::assertNotDispatched(BeforeEvent::class);
         Event::assertNotDispatched(AfterEvent::class);
-        Event::assertNotDispatched(FailedEvent::class);
-    }
-
-    public function testOnlyFailedEventNotDispatched()
-    {
-        // Assemble.
-        Event::fake();
-
-        // Act.
-        ActionWithOnlyFailedEvent::act();
-
-        // Assert.
-        Event::assertNotDispatched(BeforeEvent::class);
-        Event::assertNotDispatched(AfterEvent::class);
-        Event::assertNotDispatched(FailedEvent::class);
-    }
-
-    public function testOnlyFailedEventDispatchedIfItFails()
-    {
-        // Assemble.
-        Event::fake();
-
-        // Act.
-        // Passing `true` tells the action that the test should throw an exception.
-        ActionWithOnlyFailedEvent::act(true);
-
-        // Assert.
-        Event::assertNotDispatched(BeforeEvent::class);
-        Event::assertNotDispatched(AfterEvent::class);
-        Event::assertDispatched(FailedEvent::class);
     }
 }
