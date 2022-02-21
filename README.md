@@ -9,15 +9,15 @@
 
 Laravel Actions are simple job-like classes that don't interact with the queue. Actions are great to leverage when you have some simple functionality that you need to reuse.
 
-But why would you want to use actions you ask? Actions are great when you have small bits of code you want to extract into small testable classes. Actions can also take the place of queued jobs when you don't want or need that kind of power. Jobs also aren't a great tool if you need the results of the action right now.
+But why would you want to use Actions you ask? Actions are great when you have small bits of code that you want to extract into small, testable classes. Actions can also take the place of queued jobs when you don't want or need that kind of power, or if you need the results of the code right now.
 
 But the real power is with eventing.
 
-This package exposes two events during your action:
-- Before the action begins
-- After the action completes
+This package exposes two events during your Action:
+- Before the Action begins
+- After the Action completes
 
-The special sauce here is that you get to tell the action which events you want triggered!
+The special sauce here is that you get to tell the Action which events you want triggered!
 
 ## Requirements
 
@@ -31,15 +31,15 @@ composer require kirschbaum-development/laravel-actions
 
 ## Creating and Preparing the Action
 
-Create a new action with artisan command:
+Create a new Action with artisan command:
 
 ```bash
 php artisan make:action ChuckNorris
 ```
 
-This will create a new action class at `app/Actions/ChuckNorris.php`.
+This will create a new Action class at `app/Actions/ChuckNorris.php`. You are, of course, free to move the action wherever you want. Just make sure you update the namespace!
 
-There are three public properties ready for your events: `$before` and `$after`. You can set the ones you need and remove the others.
+There are two public properties ready for your events: `$before` and `$after`. You can use one or both of these, and you can remove either of them if you don't use them in your Action class.
 
 ```php
  /**
@@ -57,7 +57,7 @@ There are three public properties ready for your events: `$before` and `$after`.
  public $after = ChuckNorrisBlewYourMind::class;
 ```
 
-Next place your required arguments within the `__construct()` method and your action code within the `__invoke()` method. You are free to return anything you might need from the invokeable method. Now we're ready to use the action!
+Next place your required arguments within the `__construct()` method and your Action code within the `__invoke()` method. You are free to return anything you might need from the invokeable method. Now we're ready to use the Action!
 
 ```php
 /**
@@ -83,11 +83,11 @@ public function __invoke()
 
 ## Usage
 
-There are two different ways we can call our newly created action.
+There are two different ways we can call our newly created Action.
 
 ### From the Action
 
-We can call one of three methods on the action itself as long as the class is using the `CanAct` trait.
+We can call one of three methods on the Action itself as long as the class is using the `CanAct` trait.
 
 ```php
 ChuckNorris::act($data);
@@ -95,9 +95,9 @@ ChuckNorris::actWhen($isChuckNorrisMighty, $data);
 ChuckNorris::actUnless($isChuckNorrisPuny, $data);
 ```
 
-The `$data` is passed into the action's constructor. You can pass as many arguments as needed in your use case.
+The `$data` is passed into the Action's constructor. You can pass as many arguments as needed in your use case.
 
-The second two methods, `actWhen` and `actUnless` require a condition as the first variable. These work like other Laravel methods such as `throw_if()` and `throw_unless()`. Finally, you can pass as many arguments as needed for your action after the condition.
+The second two methods, `actWhen` and `actUnless` require a condition as the first variable. These work like other Laravel methods such as `throw_if()` and `throw_unless()`. Finally, you can pass as many arguments as needed for your Action after the condition.
 
 ### Facade
 
@@ -111,7 +111,7 @@ Action::actWhen($isChuckNorrisMighty, new ChuckNorris($data));
 Action::actUnless($isChuckNorrisPuny, new ChuckNorris($data));
 ```
 
-The usage is nearly identical to calling the methods directly on the action as mentioned in the section above. The benefit here is that you can easily test actions using `Action::shouldReceive('act')`, `Action::shouldReceive('actWhen')` or `Action::shouldReceive('actUnless')`.
+The usage is nearly identical to calling the methods directly on the Action as mentioned in the section above. The benefit here is that you can easily test actions using `Action::shouldReceive('act')`, `Action::shouldReceive('actWhen')` or `Action::shouldReceive('actUnless')`.
 
 ### Helpers
 
@@ -125,7 +125,7 @@ act_unless($isChuckNorrisPuny, new ChuckNorris($data));
 
 ### Dependency Injection
 
-You can even injection actions as a dependency with your app!
+You can even inject Actions as a dependencies inside your application!
 
 ```php
 use Kirschbaum\Actions\Contracts\Actionable;
@@ -140,7 +140,7 @@ public function index (Actionable $action)
 
 ## Handling Failures
 
-We all know Chuck Norris isn't going to fail us, but he isn't the only one using this... Handling failures is pretty easy with actions. Out of the box, any exceptions get handled by Laravel's exception handler. If you'd rather implement your own logic during a failure, add a `failed()` method to your action. It's that easy!
+We all know Chuck Norris isn't going to fail us, but he isn't the only one using this... Handling failures is pretty easy with Actions. Out of the box, any exceptions thrown by your Action classes get handled by Laravel's exception handler. If you'd rather implement your own logic during a failure, add a `failed()` method to your Action. It's that easy! You can return data from your `failed()` method if you choose as well.
 
 ```php
 /**
@@ -160,7 +160,7 @@ Hashtag #BAM!
 
 ### Custom Exceptions
 
-Another option for handling failures is to tell the action to fire its own exception. If you don't need the extra overhead of writing your own `failed()` method, you can just tell your action to throw a custom exception. It's as simple as just defining the exception you want thrown from the action.
+Another option for handling failures is to tell the Action to throw its own exception. If you don't need the extra overhead of writing your own `failed()` method, you can just tell your Action to throw a custom exception. It's as simple as just defining the exception you want thrown from the Action.
 
 ```php
 /**
@@ -173,11 +173,11 @@ public $exception = SeagalFailedException::class;
 
 ## Testing
 
-Have no fear. Testing all of this is very straight forward. There are two approaches to testing built in.
+Have no fear. Testing all of this is very straightforward. There are two approaches to testing built in.
 
 ### Testing Facades
 
-If you are using Facades to implement your actions, you can use the standard 'shouldReceive()' method directly from the Facade.
+If you are using Facades to implement your Actions, you can use the standard `shouldReceive()` method directly from the Facade.
 
 ```php
 use Kirschbaum\Actions\Facades\Action;
@@ -203,7 +203,7 @@ $this->mock(Actionable::class, function ($mock) {
 
 ## Last thoughts
 
-If for some reason you'd prefer not to use the cool eventing system, facades, mocking, etc., that's fine. Just call your action like this:
+If for some reason you'd prefer not to use the cool Eventing system, Facades, Mocking, etc., that's fine. Just call your Action like this:
 
 ```php
 new ChuckNorris($data);

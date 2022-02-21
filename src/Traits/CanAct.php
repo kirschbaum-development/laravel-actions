@@ -51,31 +51,4 @@ trait CanAct
     {
         return app(Actionable::class)->actUnless($condition, new static(...$arguments));
     }
-
-    /**
-     * Handle failure of the action.
-     *
-     * @throws Throwable
-     *
-     * @return mixed
-     */
-    public function failed(Throwable $exception)
-    {
-        if ($this->hasCustomException()) {
-            throw new $this->exception();
-        }
-
-        throw $exception;
-    }
-
-    /**
-     * Check if action has a custom exception.
-     *
-     * @return bool
-     */
-    protected function hasCustomException(): bool
-    {
-        return property_exists($this, 'exception')
-            && class_exists($this->exception);
-    }
 }

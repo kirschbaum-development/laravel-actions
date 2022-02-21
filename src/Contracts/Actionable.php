@@ -2,8 +2,6 @@
 
 namespace Kirschbaum\Actions\Contracts;
 
-use Throwable;
-
 interface Actionable
 {
     /**
@@ -12,11 +10,4 @@ interface Actionable
      * @return mixed
      */
     public function __invoke();
-
-    /**
-     * Handle failure of the action.
-     *
-     * @return mixed
-     */
-    public function failed(Throwable $exception);
 }

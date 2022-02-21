@@ -2,13 +2,22 @@
 
 namespace Kirschbaum\Actions;
 
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 use Kirschbaum\Actions\Contracts\Actionable;
 use Kirschbaum\Actions\Commands\MakeActionCommand;
 
 class ActionsServiceProvider extends ServiceProvider
 {
+    /**
+     * All of the container bindings that should be registered.
+     *
+     * @var array
+     */
+    public $bindings = [
+        'actions' => Action::class,
+        Actionable::class => Action::class,
+    ];
+
     /**
      * Bootstrap any package services.
      *
@@ -21,24 +30,6 @@ class ActionsServiceProvider extends ServiceProvider
                 MakeActionCommand::class,
             ]);
         }
-    }
-
-    /**
-     * Register any package services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        // Facade binding.
-        App::bind('actions', function () {
-            return new Action();
-        });
-
-        // Interface binding.
-        App::bind(Actionable::class, function () {
-            return new Action();
-        });
     }
 
     /**

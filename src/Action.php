@@ -69,15 +69,25 @@ class Action
 
         try {
             $response = $action();
-        } catch (Throwable $throwable) {
-            $action->failed($throwable);
-
-            return;
+        } catch (Throwable $exception) {
+            return $this->handleFailure($action, $exception);
         }
 
         $this->raiseAfterActionEvent($action);
 
         return $response;
+    }
+
+    /**
+     * Determine if the action has a `failed()` method defined.
+     *
+     * @param Actionable $action
+     *
+     * @return bool
+     */
+    protected function actionHasFailedMethod(Actionable $action): bool
+    {
+        return method_exists($action, 'failed');
     }
 
     /**
@@ -117,17 +127,38 @@ class Action
      * Fire failure event and/or call failed action method if they exist.
      *
      * @param Actionable $action
-     * @param Throwable $throwable
+     * @param Throwable $exception
      *
-     * @return void
+     * @throws Throwable
+     *
+     * @return mixed
      */
-    protected function handleFailure(Actionable $action, Throwable $throwable): void
+    protected function handleFailure(Actionable $action, Throwable $exception)
     {
-        $this->raiseExceptionOccurredActionEvent($action, $throwable);
-
-        if (method_exists($action, 'failed')) {
-            $action->failed($throwable);
+        if ($this->actionHasFailedMethod($action)) {
+            return $action->failed($exception);
         }
+
+        if ($this->hasCustomException($action)) {
+            $exception = $action->exception;
+
+            throw new $exception();
+        }
+
+        throw $exception;
+    }
+
+    /**
+     * Check if action has a custom exception.
+     *
+     * @param Actionable $action
+     *
+     * @return bool
+     */
+    protected function hasCustomException(Actionable $action): bool
+    {
+        return property_exists($action, 'exception')
+            && class_exists($action->exception);
     }
 
     /**
@@ -152,18 +183,5 @@ class Action
     protected function raiseAfterActionEvent(Actionable $action): void
     {
         $this->dispatchEvent('after', $action);
-    }
-
-    /**
-     * Raise the exception occurred action event.
-     *
-     * @param Actionable $action
-     * @param Throwable $throwable
-     *
-     * @return void
-     */
-    protected function raiseExceptionOccurredActionEvent(Actionable $action, Throwable $throwable): void
-    {
-        $this->dispatchEvent('failed', $action, $throwable);
     }
 }
