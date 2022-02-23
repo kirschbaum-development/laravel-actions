@@ -3,9 +3,9 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use Tests\Fixtures\ActionWithException;
-use Tests\Fixtures\ActionWithCustomException;
+use Tests\Fixtures\Actions\ActionWithException;
 use Tests\Fixtures\Exceptions\CustomFailedException;
+use Tests\Fixtures\Actions\ActionWithCustomException;
 use Kirschbaum\Actions\Exceptions\ActionFailedException;
 
 class ActionExceptionTest extends TestCase

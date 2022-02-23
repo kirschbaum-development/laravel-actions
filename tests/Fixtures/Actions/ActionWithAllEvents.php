@@ -1,13 +1,14 @@
 <?php
 
-namespace Tests\Fixtures;
+namespace Tests\Fixtures\Actions;
 
 use Throwable;
 use Kirschbaum\Actions\Traits\CanAct;
+use Tests\Fixtures\Events\AfterEvent;
 use Tests\Fixtures\Events\BeforeEvent;
 use Kirschbaum\Actions\Contracts\Actionable;
 
-class ActionWithOnlyBeforeEvent implements Actionable
+class ActionWithAllEvents implements Actionable
 {
     use CanAct;
 
@@ -17,6 +18,13 @@ class ActionWithOnlyBeforeEvent implements Actionable
      * @var string
      */
     public $before = BeforeEvent::class;
+
+    /**
+     * Event to dispatch after action completes.
+     *
+     * @var string
+     */
+    public $after = AfterEvent::class;
 
     /**
      * Execute the action.

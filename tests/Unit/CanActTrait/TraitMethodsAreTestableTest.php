@@ -1,12 +1,11 @@
 <?php
 
-namespace Tests\Unit\Helpers;
+namespace Tests\Unit\CanActTrait;
 
-use Mockery;
 use Tests\TestCase;
 use Tests\Fixtures\CallCanTraitMethods;
 use Illuminate\Foundation\Testing\WithFaker;
-use Kirschbaum\Actions\Contracts\Actionable;
+use Tests\Fixtures\Actions\ActionWithAllEvents;
 
 class TraitMethodsAreTestableTest extends TestCase
 {
@@ -15,10 +14,10 @@ class TraitMethodsAreTestableTest extends TestCase
     public function testActCanBeMocked()
     {
         // Assemble.
-        $this->mock(Actionable::class, function ($mock) {
+        $this->mock(ActionWithAllEvents::class, function ($mock) {
             $mock->shouldReceive('act')
                 ->once()
-                ->with(Mockery::type(Actionable::class));
+                ->with(ActionWithAllEvents::class);
         });
 
         // Act.
@@ -30,10 +29,10 @@ class TraitMethodsAreTestableTest extends TestCase
         // Assemble.
         $condition = $this->faker()->boolean;
 
-        $this->mock(Actionable::class, function ($mock) use ($condition) {
+        $this->mock(ActionWithAllEvents::class, function ($mock) use ($condition) {
             $mock->shouldReceive('actWhen')
                 ->once()
-                ->with($condition, Mockery::type(Actionable::class));
+                ->with($condition, ActionWithAllEvents::class);
         });
 
         // Act.
@@ -45,10 +44,10 @@ class TraitMethodsAreTestableTest extends TestCase
         // Assemble.
         $condition = $this->faker()->boolean;
 
-        $this->mock(Actionable::class, function ($mock) use ($condition) {
-            $mock->shouldReceive('actUnless')->once()
+        $this->mock(ActionWithAllEvents::class, function ($mock) use ($condition) {
+            $mock->shouldReceive('actUnless')
                 ->once()
-                ->with($condition, Mockery::type(Actionable::class));
+                ->with($condition, ActionWithAllEvents::class);
         });
 
         // Act.

@@ -4,9 +4,9 @@ namespace Tests\Unit\Helpers;
 
 use Mockery;
 use Tests\TestCase;
+use Kirschbaum\Actions\Action;
 use Tests\Fixtures\CallHelperMethods;
 use Illuminate\Foundation\Testing\WithFaker;
-use Kirschbaum\Actions\Contracts\Actionable;
 
 class HelpersAreTestableTest extends TestCase
 {
@@ -15,10 +15,10 @@ class HelpersAreTestableTest extends TestCase
     public function testActCanBeMocked()
     {
         // Assemble.
-        $this->mock(Actionable::class, function ($mock) {
+        $this->mock(Action::class, function ($mock) {
             $mock->shouldReceive('act')
                 ->once()
-                ->with(Mockery::type(Actionable::class));
+                ->with(Mockery::type('string'));
         });
 
         // Act.
@@ -30,10 +30,10 @@ class HelpersAreTestableTest extends TestCase
         // Assemble.
         $condition = $this->faker()->boolean;
 
-        $this->mock(Actionable::class, function ($mock) use ($condition) {
+        $this->mock(Action::class, function ($mock) use ($condition) {
             $mock->shouldReceive('actWhen')
                 ->once()
-                ->with($condition, Mockery::type(Actionable::class));
+                ->with($condition, Mockery::type('string'));
         });
 
         // Act.
@@ -45,10 +45,10 @@ class HelpersAreTestableTest extends TestCase
         // Assemble.
         $condition = $this->faker()->boolean;
 
-        $this->mock(Actionable::class, function ($mock) use ($condition) {
+        $this->mock(Action::class, function ($mock) use ($condition) {
             $mock->shouldReceive('actUnless')->once()
                 ->once()
-                ->with($condition, Mockery::type(Actionable::class));
+                ->with($condition, Mockery::type('string'));
         });
 
         // Act.

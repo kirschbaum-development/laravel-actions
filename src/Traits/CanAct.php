@@ -2,53 +2,30 @@
 
 namespace Kirschbaum\Actions\Traits;
 
-use Throwable;
-use Kirschbaum\Actions\Action;
-use Kirschbaum\Actions\Contracts\Actionable;
-
 trait CanAct
 {
     /**
-     * Handle the action.
+     * Handles static method calls by passing them to the Action class.
      *
-     * @param ...$arguments
+     * @param string $name
+     * @param array $arguments
      *
-     * @throws Throwable
-     *
-     * @return mixed
+     * @return mixed|void
      */
-    public static function act(...$arguments)
+    public static function __callStatic(string $name, array $arguments)
     {
-        return app(Actionable::class)->act(new static(...$arguments));
-    }
+        if (in_array($name, ['act', 'actWhen', 'actUnless'])) {
+            $action = app(get_called_class());
 
-    /**
-     * Handle the action if the given condition is true.
-     *
-     * @param $condition
-     * @param ...$arguments
-     *
-     * @throws Throwable
-     *
-     * @return mixed
-     */
-    public static function actWhen($condition, ...$arguments)
-    {
-        return app(Actionable::class)->actWhen($condition, new static(...$arguments));
-    }
+            if ($name === 'act') {
+                return $action->act(get_called_class(), ...$arguments);
+            }
 
-    /**
-     * Handle the action if the given condition is false.
-     *
-     * @param $condition
-     * @param ...$arguments
-     *
-     * @throws Throwable
-     *
-     * @return mixed
-     */
-    public static function actUnless($condition, ...$arguments)
-    {
-        return app(Actionable::class)->actUnless($condition, new static(...$arguments));
+            return $action->$name(
+                $arguments[0],
+                get_called_class(),
+                ...array_slice($arguments, 1)
+            );
+        }
     }
 }
