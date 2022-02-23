@@ -2,6 +2,8 @@
 
 namespace Tests\Fixtures;
 
+use Tests\Fixtures\Actions\ActionWithAllEvents;
+
 class CallCanTraitMethods
 {
     public function runActTest()

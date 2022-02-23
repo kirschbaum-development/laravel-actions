@@ -5,11 +5,11 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Event;
 use Tests\Fixtures\Events\AfterEvent;
-use Tests\Fixtures\ActionWithNoEvents;
 use Tests\Fixtures\Events\BeforeEvent;
-use Tests\Fixtures\ActionWithAllEvents;
-use Tests\Fixtures\ActionWithOnlyAfterEvent;
-use Tests\Fixtures\ActionWithOnlyBeforeEvent;
+use Tests\Fixtures\Actions\ActionWithNoEvents;
+use Tests\Fixtures\Actions\ActionWithAllEvents;
+use Tests\Fixtures\Actions\ActionWithOnlyAfterEvent;
+use Tests\Fixtures\Actions\ActionWithOnlyBeforeEvent;
 
 class ActionEventingTest extends TestCase
 {

@@ -3,7 +3,7 @@
 namespace Tests\Unit\CanActTrait;
 
 use Tests\TestCase;
-use Tests\Fixtures\ActionWithAllEvents;
+use Tests\Fixtures\Actions\ActionWithAllEvents;
 
 class ActTest extends TestCase
 {

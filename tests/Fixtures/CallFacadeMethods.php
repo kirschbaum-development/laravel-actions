@@ -3,21 +3,22 @@
 namespace Tests\Fixtures;
 
 use Kirschbaum\Actions\Facades\Action;
+use Tests\Fixtures\Actions\ActionWithAllEvents;
 
 class CallFacadeMethods
 {
     public function runActTest()
     {
-        Action::act(new ActionWithAllEvents());
+        Action::act(ActionWithAllEvents::class);
     }
 
     public function runActWhenTest(bool $condition)
     {
-        Action::actWhen($condition, new ActionWithAllEvents());
+        Action::actWhen($condition, ActionWithAllEvents::class);
     }
 
     public function runActUnlessTest(bool $condition)
     {
-        Action::actUnless($condition, new ActionWithAllEvents());
+        Action::actUnless($condition, ActionWithAllEvents::class);
     }
 }

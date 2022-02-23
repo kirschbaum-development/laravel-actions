@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Fixtures;
+namespace Tests\Fixtures\Actions;
 
 use Throwable;
 use Kirschbaum\Actions\Traits\CanAct;

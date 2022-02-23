@@ -4,14 +4,14 @@ namespace Tests\Unit\Facade;
 
 use Tests\TestCase;
 use Kirschbaum\Actions\Facades\Action;
-use Tests\Fixtures\ActionWithAllEvents;
+use Tests\Fixtures\Actions\ActionWithAllEvents;
 
 class ActWhenTest extends TestCase
 {
     public function testActWhenRunsIfTruthy()
     {
         // Act.
-        $response = Action::actWhen(true, new ActionWithAllEvents());
+        $response = Action::actWhen(true, ActionWithAllEvents::class);
 
         // Assert.
         $this->assertTrue($response);
@@ -20,7 +20,7 @@ class ActWhenTest extends TestCase
     public function testActWhenRejectsIfFalsy()
     {
         // Act.
-        $response = Action::actWhen(false, new ActionWithAllEvents());
+        $response = Action::actWhen(false, ActionWithAllEvents::class);
 
         // Assert.
         $this->assertNull($response);

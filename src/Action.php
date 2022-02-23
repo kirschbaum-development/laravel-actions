@@ -3,22 +3,31 @@
 namespace Kirschbaum\Actions;
 
 use Throwable;
-use Illuminate\Support\Arr;
 use Kirschbaum\Actions\Contracts\Actionable;
+use Kirschbaum\Actions\Exceptions\ActionableInterfaceNotFoundException;
 
 class Action
 {
     /**
+     * Arguments to pass into the action's constructor.
+     *
+     * @var array
+     */
+    protected $arguments;
+
+    /**
      * Initiate the given action.
      *
-     * @param Actionable $action
+     * @param string $action
      *
      * @throws Throwable
      *
      * @return mixed|void
      */
-    public function act(Actionable $action)
+    public function act(string $action)
     {
+        $this->arguments = array_slice(func_get_args(), 1);
+
         return $this->handle($action);
     }
 
@@ -26,16 +35,18 @@ class Action
      * Initiate the given action if the given condition is true.
      *
      * @param $condition
-     * @param Actionable $action
+     * @param string $action
      *
      * @throws Throwable
      *
      * @return mixed|void
      */
-    public function actWhen($condition, Actionable $action)
+    public function actWhen($condition, string $action)
     {
         if ($condition) {
-            return $this->act($action);
+            $this->arguments = array_slice(func_get_args(), 2);
+
+            return $this->handle($action);
         }
     }
 
@@ -43,28 +54,35 @@ class Action
      * Initiate the action if the given condition is false.
      *
      * @param $condition
-     * @param Actionable $action
+     * @param string $action
      *
      * @throws Throwable
      *
      * @return mixed|void
      */
-    public function actUnless($condition, Actionable $action)
+    public function actUnless($condition, string $action)
     {
-        return $this->actWhen(! $condition, $action);
+        if (! $condition) {
+            $this->arguments = array_slice(func_get_args(), 2);
+
+            return $this->handle($action);
+        }
     }
 
     /**
      * Handle the given action.
      *
-     * @param Actionable $action
+     * @param string $action
      *
      * @throws Throwable
      *
      * @return mixed|void
      */
-    protected function handle(Actionable $action)
+    protected function handle(string $action)
     {
+        $action = new $action(...$this->arguments);
+
+        $this->checkActionForInterface($action);
         $this->raiseBeforeActionEvent($action);
 
         try {
@@ -90,20 +108,27 @@ class Action
         return method_exists($action, 'failed');
     }
 
+    protected function checkActionForInterface($action): void
+    {
+        throw_unless(
+            $action instanceof Actionable,
+            ActionableInterfaceNotFoundException::class
+        );
+    }
+
     /**
      * Dispatch appropriate action event.
      *
      * @param string $event
      * @param Actionable $action
-     * @param Throwable|null $exception
      *
      * @return void
      */
-    protected function dispatchEvent(string $event, Actionable $action, ?Throwable $exception = null): void
+    protected function dispatchEvent(string $event, Actionable $action): void
     {
         if ($this->eventExists($action, $event)) {
             // Gather method arguments except for the `$event` argument.
-            $arguments = Arr::except(func_get_args(), 0);
+            $arguments = array_slice(func_get_args(), 1);
 
             event(new $action->{$event}(...$arguments));
         }

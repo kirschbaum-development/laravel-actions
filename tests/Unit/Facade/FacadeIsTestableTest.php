@@ -7,7 +7,6 @@ use Tests\TestCase;
 use Tests\Fixtures\CallFacadeMethods;
 use Kirschbaum\Actions\Facades\Action;
 use Illuminate\Foundation\Testing\WithFaker;
-use Kirschbaum\Actions\Contracts\Actionable;
 
 class FacadeIsTestableTest extends TestCase
 {
@@ -18,7 +17,7 @@ class FacadeIsTestableTest extends TestCase
         // Assemble.
         Action::shouldReceive('act')
             ->once()
-            ->with(Mockery::type(Actionable::class));
+            ->with(Mockery::type('string'));
 
         // Act.
         (new CallFacadeMethods())->runActTest();
@@ -31,7 +30,7 @@ class FacadeIsTestableTest extends TestCase
 
         Action::shouldReceive('actWhen')
             ->once()
-            ->with($condition, Mockery::type(Actionable::class));
+            ->with($condition, Mockery::type('string'));
 
         // Act.
         (new CallFacadeMethods())->runActWhenTest($condition);
@@ -44,7 +43,7 @@ class FacadeIsTestableTest extends TestCase
 
         Action::shouldReceive('actUnless')->once()
             ->once()
-            ->with($condition, Mockery::type(Actionable::class));
+            ->with($condition, Mockery::type('string'));
 
         // Act.
         (new CallFacadeMethods())->runActUnlessTest($condition);

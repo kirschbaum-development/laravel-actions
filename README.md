@@ -21,7 +21,7 @@ The special sauce here is that you get to tell the Action which events you want 
 
 ## Requirements
 
-This package requires Laravel 6.0 or higher.
+This package requires Laravel 6.0 or higher and PHP 7.2.5 or higher.
 
 ## Installation
 
@@ -106,9 +106,9 @@ The package also has a facade. Here's the syntax:
 ```php
 use Kirschbaum\Actions\Facades\Action;
 
-Action::act(new ChuckNorris($data));
-Action::actWhen($isChuckNorrisMighty, new ChuckNorris($data));
-Action::actUnless($isChuckNorrisPuny, new ChuckNorris($data));
+Action::act(ChuckNorris::class, $data);
+Action::actWhen($isChuckNorrisMighty, ChuckNorris::class, $data);
+Action::actUnless($isChuckNorrisPuny, ChuckNorris::class, $data);
 ```
 
 The usage is nearly identical to calling the methods directly on the Action as mentioned in the section above. The benefit here is that you can easily test actions using `Action::shouldReceive('act')`, `Action::shouldReceive('actWhen')` or `Action::shouldReceive('actUnless')`.
@@ -118,9 +118,9 @@ The usage is nearly identical to calling the methods directly on the Action as m
 The package also has a few handy helpers to get Chuck in action. Here's the syntax:
 
 ```php
-act(new ChuckNorris($data));
-act_when($isChuckNorrisMighty, new ChuckNorris($data));
-act_unless($isChuckNorrisPuny, new ChuckNorris($data));
+act(ChuckNorris::class, $data);
+act_when($isChuckNorrisMighty, ChuckNorris::class, $data);
+act_unless($isChuckNorrisPuny, ChuckNorris::class, $data);
 ```
 
 ### Dependency Injection
@@ -128,13 +128,13 @@ act_unless($isChuckNorrisPuny, new ChuckNorris($data));
 You can even inject Actions as a dependencies inside your application!
 
 ```php
-use Kirschbaum\Actions\Contracts\Actionable;
+use Kirschbaum\Actions\Action;
 
-public function index (Actionable $action)
+public function index (Action $action)
 {
-    $action->act(new ChuckNorris($data));
-    $action->actWhen($isChuckNorrisMighty, new ChuckNorris($data));
-    $action->actUnless($isChuckNorrisPuny, new ChuckNorris($data));
+    $action->act(ChuckNorris::class, $data);
+    $action->actWhen($isChuckNorrisMighty, ChuckNorris::class, $data);
+    $action->actUnless($isChuckNorrisPuny, ChuckNorris::class, $data);
 }
 ```
 
@@ -171,6 +171,22 @@ Another option for handling failures is to tell the Action to throw its own exce
 public $exception = SeagalFailedException::class;
 ```
 
+## Auto-Discovery and Configuration
+
+Out of the box, actions are automatically discovered and bound to Laravel's container, which allows for easier testing of your actions. If you need to add a custom path if you are placing your actions somewhere other than `app/Actions`, make sure to publish the configs.
+
+```bash
+php artisan vendor:publish --tag laravel-actions
+```
+
+If you want to disable auto-discovery, publish the config and return an empty array from the `paths` key.
+
+```php
+return [
+    'paths' => [],
+];
+```
+
 ## Testing
 
 Have no fear. Testing all of this is very straightforward. There are two approaches to testing built in.
@@ -189,12 +205,24 @@ Action::shouldReceive('act')
 
 ### Mocking
 
-If you are using helpers, the `CanAct` trait, or dependency injection, you can easily mock the `Actionable` interface with Laravel's mocking tools.
+If you are using helpers, the `CanAct` trait, or dependency injection, you can easily mock the `Action` class with Laravel's mocking tools.
 
 ```php
-use Kirschbaum\Actions\Contracts\Actionable;
+use Kirschbaum\Actions\Action;
 
-$this->mock(Actionable::class, function ($mock) {
+$this->mock(Action::class, function ($mock) {
+    $mock->shouldReceive('act')
+        ->once()
+        ->andReturnTrue();
+});
+```
+
+Because actions are bound into Laravel's container by default, you can test specific actions as well.
+
+```php
+use App\Actions\ChuckNorris;
+
+$this->mock(ChuckNorris::class, function ($mock) {
     $mock->shouldReceive('act')
         ->once()
         ->andReturnTrue();
