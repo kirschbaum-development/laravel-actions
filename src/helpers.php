@@ -7,14 +7,15 @@ if (! function_exists('act')) {
      * Initiate the given action.
      *
      * @param string $action
+     * @param mixed ...$arguments
      *
      * @throws Throwable
      *
      * @return mixed
      */
-    function act(string $action)
+    function act(string $action, ...$arguments)
     {
-        return app(Action::class)->act($action, ...array_slice(func_get_args(), 1));
+        return app(Action::class)->act($action, ...$arguments);
     }
 }
 
@@ -24,14 +25,15 @@ if (! function_exists('act_when')) {
      *
      * @param $condition
      * @param string $action
+     * @param mixed ...$arguments
      *
      * @throws Throwable
      *
-     * @return mixed|void
+     * @return mixed
      */
-    function act_when($condition, string $action)
+    function act_when($condition, string $action, ...$arguments)
     {
-        return app(Action::class)->actWhen($condition, $action, ...array_slice(func_get_args(), 2));
+        return app(Action::class)->actWhen($condition, $action, ...$arguments);
     }
 }
 
@@ -41,13 +43,14 @@ if (! function_exists('act_unless')) {
      *
      * @param $condition
      * @param string $action
+     * @param mixed ...$arguments
      *
      * @throws Throwable
      *
-     * @return mixed|void
+     * @return mixed
      */
-    function act_unless($condition, string $action)
+    function act_unless($condition, string $action, ...$arguments)
     {
-        return app(Action::class)->actUnless($condition, $action, ...array_slice(func_get_args(), 2));
+        return app(Action::class)->actUnless($condition, $action, ...$arguments);
     }
 }

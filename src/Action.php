@@ -19,14 +19,15 @@ class Action
      * Initiate the given action.
      *
      * @param string $action
+     * @param mixed ...$arguments
      *
      * @throws Throwable
      *
-     * @return mixed|void
+     * @return mixed
      */
-    public function act(string $action)
+    public function act(string $action, ...$arguments)
     {
-        $this->arguments = array_slice(func_get_args(), 1);
+        $this->arguments = $arguments;
 
         return $this->handle($action);
     }
@@ -36,15 +37,16 @@ class Action
      *
      * @param $condition
      * @param string $action
+     * @param mixed ...$arguments
      *
      * @throws Throwable
      *
      * @return mixed|void
      */
-    public function actWhen($condition, string $action)
+    public function actWhen($condition, string $action, ...$arguments)
     {
         if ($condition) {
-            $this->arguments = array_slice(func_get_args(), 2);
+            $this->arguments = $arguments;
 
             return $this->handle($action);
         }
@@ -55,12 +57,13 @@ class Action
      *
      * @param $condition
      * @param string $action
+     * @param mixed ...$arguments
      *
      * @throws Throwable
      *
      * @return mixed|void
      */
-    public function actUnless($condition, string $action)
+    public function actUnless($condition, string $action, ...$arguments)
     {
         if (! $condition) {
             $this->arguments = array_slice(func_get_args(), 2);
