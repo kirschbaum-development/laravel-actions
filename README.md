@@ -21,7 +21,10 @@ The special sauce here is that you get to tell the Action which events you want 
 
 ## Requirements
 
-This package requires Laravel 6.0 or higher and PHP 7.2.5 or higher.
+| PHP Version  | Laravel Actions Version |
+|--------------|-------------------------|
+| `^6.0, ^7.0` | `^0.1.0`                |
+| `^8.0`       | `^0.2.0`                |
 
 ## Installation
 
