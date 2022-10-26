@@ -1,0 +1,37 @@
+{
+  "preset": "laravel",
+  "rules": {
+    "blank_line_before_statement": {
+      "statements": [
+        "break",
+        "case",
+        "continue",
+        "declare",
+        "default",
+        "do",
+        "exit",
+        "for",
+        "foreach",
+        "if",
+        "include",
+        "include_once",
+        "require",
+        "require_once",
+        "return",
+        "switch",
+        "throw",
+        "try",
+        "while",
+        "yield"
+      ]
+    },
+    "concat_space": {
+      "spacing": "one"
+    },
+    "explicit_string_variable": true,
+    "method_chaining_indentation": true,
+    "new_with_braces": true,
+    "ordered_traits": true,
+    "phpdoc_separation": true
+  }
+}

@@ -2,11 +2,11 @@
 
 namespace Tests\Unit\Helpers;
 
-use Mockery;
-use Tests\TestCase;
-use Kirschbaum\Actions\Action;
-use Tests\Fixtures\CallHelperMethods;
 use Illuminate\Foundation\Testing\WithFaker;
+use Kirschbaum\Actions\Action;
+use Mockery;
+use Tests\Fixtures\CallHelperMethods;
+use Tests\TestCase;
 
 class HelpersAreTestableTest extends TestCase
 {

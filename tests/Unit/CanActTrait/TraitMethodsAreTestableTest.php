@@ -2,10 +2,10 @@
 
 namespace Tests\Unit\CanActTrait;
 
-use Tests\TestCase;
-use Tests\Fixtures\CallCanTraitMethods;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\Fixtures\Actions\ActionWithAllEvents;
+use Tests\Fixtures\CallCanTraitMethods;
+use Tests\TestCase;
 
 class TraitMethodsAreTestableTest extends TestCase
 {

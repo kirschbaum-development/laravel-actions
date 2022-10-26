@@ -40,7 +40,7 @@ class MakeActionCommand extends GeneratorCommand
     /**
      * Get the default namespace for the class.
      *
-     * @param string $rootNamespace
+     * @param  string  $rootNamespace
      */
     protected function getDefaultNamespace($rootNamespace): string
     {
@@ -50,7 +50,7 @@ class MakeActionCommand extends GeneratorCommand
     /**
      * Override of parent class so that imports don't get sorted.
      *
-     * @param string $stub
+     * @param  string  $stub
      */
     protected function sortImports($stub): string
     {

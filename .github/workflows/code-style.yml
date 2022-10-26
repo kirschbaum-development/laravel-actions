@@ -2,7 +2,7 @@ on: push
 name: Code Style
 
 jobs:
-  php-cs-fixer:
+  laravel-pint:
     runs-on: ubuntu-latest
     container:
       image: kirschbaumdevelopment/laravel-test-runner:8.0
@@ -12,10 +12,9 @@ jobs:
       with:
         fetch-depth: 1
 
-    - name: Install PHP CS Fixer
+    - name: Install composer dependencies
       run: |
-        composer global require friendsofphp/php-cs-fixer
-
+        composer install --prefer-dist --no-interaction --no-scripts
     - name: Check Coding Standards
-      run: php-cs-fixer fix --dry-run
+      run: composer pint-check
 

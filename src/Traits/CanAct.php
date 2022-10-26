@@ -7,8 +7,8 @@ trait CanAct
     /**
      * Handles static method calls by passing them to the Action class.
      *
-     * @param string $name
-     * @param array $arguments
+     * @param  string  $name
+     * @param  array  $arguments
      *
      * @return mixed|void
      */

@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\CanActTrait;
 
-use Tests\TestCase;
 use Tests\Fixtures\Actions\ActionWithAllEvents;
+use Tests\TestCase;
 
 class ActWhenTest extends TestCase
 {

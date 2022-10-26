@@ -2,21 +2,21 @@
 
 namespace Tests;
 
-use ReflectionClass;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Str;
 use Kirschbaum\Actions\Action;
-use Symfony\Component\Finder\Finder;
-use Illuminate\Foundation\Application;
-use Kirschbaum\Actions\Contracts\Actionable;
 use Kirschbaum\Actions\ActionsServiceProvider;
+use Kirschbaum\Actions\Contracts\Actionable;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use ReflectionClass;
+use Symfony\Component\Finder\Finder;
 
 class TestCase extends OrchestraTestCase
 {
     /**
      * Get package providers.
      *
-     * @param Application $app
+     * @param  Application  $app
      *
      * @return array
      */
@@ -30,11 +30,11 @@ class TestCase extends OrchestraTestCase
     /**
      * Define environment setup.
      *
-     * @param Application $app
-     *
-     * @throws \ReflectionException
+     * @param  Application  $app
      *
      * @return void
+     *
+     * @throws \ReflectionException
      */
     protected function defineEnvironment($app)
     {
