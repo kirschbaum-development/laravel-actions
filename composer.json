@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": ">=7.2.5",
+        "php": "^8.0",
         "illuminate/events": ">=6.0"
     },
     "require-dev": {
