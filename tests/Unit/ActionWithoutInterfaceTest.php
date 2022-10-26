@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
+use Kirschbaum\Actions\Exceptions\ActionableInterfaceNotFoundException;
 use Kirschbaum\Actions\Facades\Action;
 use Tests\Fixtures\Actions\ActionWithoutInterface;
-use Kirschbaum\Actions\Exceptions\ActionableInterfaceNotFoundException;
+use Tests\TestCase;
 
 class ActionWithoutInterfaceTest extends TestCase
 {

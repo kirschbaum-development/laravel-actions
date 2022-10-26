@@ -2,10 +2,10 @@
 
 namespace Tests\Fixtures\Actions;
 
-use Throwable;
+use Kirschbaum\Actions\Contracts\Actionable;
 use Kirschbaum\Actions\Traits\CanAct;
 use Tests\Fixtures\Events\BeforeEvent;
-use Kirschbaum\Actions\Contracts\Actionable;
+use Throwable;
 
 class ActionWithOnlyBeforeEvent implements Actionable
 {
@@ -21,9 +21,9 @@ class ActionWithOnlyBeforeEvent implements Actionable
     /**
      * Execute the action.
      *
-     * @throws Throwable
-     *
      * @return mixed
+     *
+     * @throws Throwable
      */
     public function __invoke()
     {

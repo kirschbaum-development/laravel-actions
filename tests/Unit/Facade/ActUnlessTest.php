@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Facade;
 
-use Tests\TestCase;
 use Kirschbaum\Actions\Facades\Action;
 use Tests\Fixtures\Actions\ActionWithAllEvents;
+use Tests\TestCase;
 
 class ActUnlessTest extends TestCase
 {

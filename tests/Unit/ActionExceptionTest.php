@@ -2,11 +2,11 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
+use Kirschbaum\Actions\Exceptions\ActionFailedException;
+use Tests\Fixtures\Actions\ActionWithCustomException;
 use Tests\Fixtures\Actions\ActionWithException;
 use Tests\Fixtures\Exceptions\CustomFailedException;
-use Tests\Fixtures\Actions\ActionWithCustomException;
-use Kirschbaum\Actions\Exceptions\ActionFailedException;
+use Tests\TestCase;
 
 class ActionExceptionTest extends TestCase
 {

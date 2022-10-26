@@ -2,13 +2,13 @@
 
 namespace Kirschbaum\Actions;
 
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
+use Kirschbaum\Actions\Commands\MakeActionCommand;
+use Kirschbaum\Actions\Contracts\Actionable;
 use ReflectionClass;
 use ReflectionException;
-use Illuminate\Support\Str;
 use Symfony\Component\Finder\Finder;
-use Illuminate\Support\ServiceProvider;
-use Kirschbaum\Actions\Contracts\Actionable;
-use Kirschbaum\Actions\Commands\MakeActionCommand;
 
 class ActionsServiceProvider extends ServiceProvider
 {
@@ -35,9 +35,9 @@ class ActionsServiceProvider extends ServiceProvider
     /**
      * Bootstrap any package services.
      *
-     * @throws ReflectionException
-     *
      * @return void
+     *
+     * @throws ReflectionException
      */
     public function boot(): void
     {
@@ -61,9 +61,9 @@ class ActionsServiceProvider extends ServiceProvider
     /**
      * Auto-discover actions classes.
      *
-     * @throws ReflectionException
-     *
      * @return void
+     *
+     * @throws ReflectionException
      */
     protected function bootAutoDiscoverActions(): void
     {

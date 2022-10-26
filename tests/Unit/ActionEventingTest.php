@@ -2,14 +2,14 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
 use Illuminate\Support\Facades\Event;
-use Tests\Fixtures\Events\AfterEvent;
-use Tests\Fixtures\Events\BeforeEvent;
-use Tests\Fixtures\Actions\ActionWithNoEvents;
 use Tests\Fixtures\Actions\ActionWithAllEvents;
+use Tests\Fixtures\Actions\ActionWithNoEvents;
 use Tests\Fixtures\Actions\ActionWithOnlyAfterEvent;
 use Tests\Fixtures\Actions\ActionWithOnlyBeforeEvent;
+use Tests\Fixtures\Events\AfterEvent;
+use Tests\Fixtures\Events\BeforeEvent;
+use Tests\TestCase;
 
 class ActionEventingTest extends TestCase
 {

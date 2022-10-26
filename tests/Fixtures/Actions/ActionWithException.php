@@ -2,10 +2,10 @@
 
 namespace Tests\Fixtures\Actions;
 
-use Throwable;
-use Kirschbaum\Actions\Traits\CanAct;
 use Kirschbaum\Actions\Contracts\Actionable;
 use Kirschbaum\Actions\Exceptions\ActionFailedException;
+use Kirschbaum\Actions\Traits\CanAct;
+use Throwable;
 
 class ActionWithException implements Actionable
 {
@@ -14,9 +14,9 @@ class ActionWithException implements Actionable
     /**
      * Execute the action.
      *
-     * @throws Throwable
-     *
      * @return mixed
+     *
+     * @throws Throwable
      */
     public function __invoke()
     {

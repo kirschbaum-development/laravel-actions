@@ -2,11 +2,11 @@
 
 namespace Tests\Unit\Facade;
 
-use Mockery;
-use Tests\TestCase;
-use Tests\Fixtures\CallFacadeMethods;
-use Kirschbaum\Actions\Facades\Action;
 use Illuminate\Foundation\Testing\WithFaker;
+use Kirschbaum\Actions\Facades\Action;
+use Mockery;
+use Tests\Fixtures\CallFacadeMethods;
+use Tests\TestCase;
 
 class FacadeIsTestableTest extends TestCase
 {

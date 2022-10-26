@@ -16,12 +16,12 @@
         }
     ],
     "require": {
-        "php": ">=7.2.5",
+        "php": "^8.0",
         "illuminate/events": ">=6.0"
     },
     "require-dev": {
-		"codedungeon/phpunit-result-printer": "^0.32.0",
-        "friendsofphp/php-cs-fixer": "^3.3.2|^3.6",
+        "codedungeon/phpunit-result-printer": "^0.32.0",
+        "laravel/pint": "^1.2",
         "orchestra/testbench": "^4.18|^5.20|^6.24|^7.0",
         "phpunit/phpunit": "^8.5.8|^9.3.3|^9.5.10"
     },
@@ -37,6 +37,14 @@
         "psr-4": {
             "Tests\\": "tests/"
         }
+    },
+    "scripts": {
+        "pint": [
+            "./vendor/bin/pint"
+        ],
+        "pint-check": [
+            "./vendor/bin/pint --test"
+        ]
     },
     "config": {
         "sort-packages": true

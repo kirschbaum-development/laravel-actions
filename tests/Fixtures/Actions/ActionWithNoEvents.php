@@ -2,9 +2,9 @@
 
 namespace Tests\Fixtures\Actions;
 
-use Throwable;
-use Kirschbaum\Actions\Traits\CanAct;
 use Kirschbaum\Actions\Contracts\Actionable;
+use Kirschbaum\Actions\Traits\CanAct;
+use Throwable;
 
 class ActionWithNoEvents implements Actionable
 {
@@ -13,9 +13,9 @@ class ActionWithNoEvents implements Actionable
     /**
      * Execute the action.
      *
-     * @throws Throwable
-     *
      * @return mixed
+     *
+     * @throws Throwable
      */
     public function __invoke()
     {
