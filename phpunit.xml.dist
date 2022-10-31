@@ -12,7 +12,6 @@
         processIsolation="false"
         stopOnFailure="false"
         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
-        printerClass="Codedungeon\PHPUnitPrettyResultPrinter\Printer"
 >
   <coverage>
     <include>
