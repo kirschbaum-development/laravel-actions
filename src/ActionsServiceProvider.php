@@ -77,20 +77,18 @@ class ActionsServiceProvider extends ServiceProvider
             return;
         }
 
-        $namespace = $this->app->getNamespace();
-
         foreach ((new Finder())->in($paths->toArray())->files() as $action) {
-            $action = $namespace . str_replace(
-                ['/', '.php'],
-                ['\\', ''],
-                Str::after($action->getRealPath(), realpath(app_path()) . DIRECTORY_SEPARATOR)
-            );
+            if (preg_match('#(namespace)(\\s+)([A-Za-z0-9\\\\]+?)(\\s*);#sm', $action->getContents(), $namespaceMatches)) {
+                $action = (string) Str::of($namespaceMatches[3])
+                    ->finish('\\')
+                    ->append($action->getBasename('.php'));
 
-            if (
-                is_subclass_of($action, Actionable::class)
-                && ! (new ReflectionClass($action))->isAbstract()
-            ) {
-                $this->app->bind($action, Action::class);
+                if (
+                    is_subclass_of($action, Actionable::class)
+                    && ! (new ReflectionClass($action))->isAbstract()
+                ) {
+                    $this->app->bind($action, Action::class);
+                }
             }
         }
     }

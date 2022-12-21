@@ -16,10 +16,12 @@
         }
     ],
     "require": {
-        "php": "^8.0"
+        "php": "^8.0",
+        "illuminate/support": ">=7.20"
     },
     "require-dev": {
         "laravel/pint": "^1.2",
+        "nunomaduro/larastan": "^2.0",
         "orchestra/testbench": "^7.11.0",
         "phpunit/phpunit": "^9.5.10"
     },
@@ -33,10 +35,14 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests/",
+            "Larastan\\": "larastan/"
         }
     },
     "scripts": {
+        "larastan": [
+            "./vendor/bin/phpstan analyse"
+        ],
         "pint": [
             "./vendor/bin/pint"
         ],
