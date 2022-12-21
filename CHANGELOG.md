@@ -2,6 +2,10 @@
 
 All notable changes to `actions` will be documented in this file.
 
+## 0.2.1 - 2022-12-21
+
+- Sweet little Christmas cookie for you! The old system relied on converting any of the file paths for auto-discover actions classes into namespaces. This worked wonderfully if you stuck with the default `App\...` namespaces located in a directory structure that matched. However, if you are developing using systems like Domain Driven file structures you may find that while your path might be `src/Domain/People/Actions/` your namespace might instead be `Domain\People\Actions`. These don't match and will cause issues with Actions. Instead we are scraping the namespaces directly from each file and using that instead!
+
 ## 0.2.0 - 2022-10-31
 
 - Updated for use with PHP 8.0 and up. For older version of PHP, use version 0.1.x of this package instead.
