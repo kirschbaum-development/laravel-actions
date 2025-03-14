@@ -4,6 +4,4 @@ namespace Tests\Fixtures\Exceptions;
 
 use Exception;
 
-class CustomFailedException extends Exception
-{
-}
+class CustomFailedException extends Exception {}

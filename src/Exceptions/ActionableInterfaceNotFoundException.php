@@ -4,6 +4,4 @@ namespace Kirschbaum\Actions\Exceptions;
 
 use Exception;
 
-class ActionableInterfaceNotFoundException extends Exception
-{
-}
+class ActionableInterfaceNotFoundException extends Exception {}

@@ -25,13 +25,26 @@
         "yield"
       ]
     },
+    "class_definition": {
+      "multi_line_extends_each_single_line": true,
+      "single_item_single_line": true,
+      "single_line": false
+    },
     "concat_space": {
       "spacing": "one"
     },
     "explicit_string_variable": true,
     "method_chaining_indentation": true,
     "new_with_braces": true,
+    "nullable_type_declaration_for_default_null_value": true,
     "ordered_traits": true,
-    "phpdoc_separation": true
+    "php_unit_method_casing": {
+      "case": "camel_case"
+    },
+    "php_unit_test_annotation": {
+      "style": "prefix"
+    },
+    "phpdoc_separation": true,
+    "single_line_empty_body": true
   }
 }

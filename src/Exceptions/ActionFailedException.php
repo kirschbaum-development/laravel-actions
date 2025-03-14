@@ -4,6 +4,4 @@ namespace Kirschbaum\Actions\Exceptions;
 
 use Exception;
 
-class ActionFailedException extends Exception
-{
-}
+class ActionFailedException extends Exception {}

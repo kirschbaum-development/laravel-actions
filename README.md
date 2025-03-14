@@ -141,6 +141,29 @@ public function index (Action $action)
 }
 ```
 
+## Macros
+
+There are times when you may want to add something extra to your actions. We can leverage macros for this!
+
+Here is an example were we are leveraging Inertia's defer functionality directly on our action. The macro then just calls `act()` on the action class when the deferred prop is requested!
+
+```php
+// In your service provider
+Action::macro('defer', function($action, ...$arguments) {
+    return Inertia::defer(fn () => $action::act(...$arguments));
+});
+
+// In your controller
+return Inertia::render('Users/Index')
+    ->with('users', GetUsers::defer());
+```
+
+Note how the originating class is passed into the macro function as the first parameter. This is very important, otherwise the macro will be unaware of which action you are actually running as macros are technically run on the parent action class. You are also free to do what you want regarding the subsequent $arguments, but it is considered best practice to pack/unpack the arguments with the spread operator to ensure the actions are as flexible as possible.
+
+Also take note the `defer()` is defined on the `Kirschbaum\Actions\Action` class, not on the `GetUsers` action class. Individual actions are not macroable in and of themselves. The macro `defer()` will also be available to every action in your application, not just the `GetUsers` action! 
+
+Before and after events will not be fired when using macros. They will get fired however if you use an action's `act()`, `actWhen()`, or `actUnless()` methods with the macro function.
+
 ## Handling Failures
 
 We all know Chuck Norris isn't going to fail us, but he isn't the only one using this... Handling failures is pretty easy with Actions. Out of the box, any exceptions thrown by your Action classes get handled by Laravel's exception handler. If you'd rather implement your own logic during a failure, add a `failed()` method to your Action. It's that easy! You can return data from your `failed()` method if you choose as well.
