@@ -18,9 +18,7 @@ class AfterEvent
      *
      * @return void
      */
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Get the channels the event should broadcast on.

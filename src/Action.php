@@ -2,23 +2,23 @@
 
 namespace Kirschbaum\Actions;
 
+use Illuminate\Support\Traits\Macroable;
 use Kirschbaum\Actions\Contracts\Actionable;
 use Kirschbaum\Actions\Exceptions\ActionableInterfaceNotFoundException;
 use Throwable;
 
 class Action
 {
+    use Macroable;
+
     /**
      * Arguments to pass into the action's constructor.
-     *
-     * @var array
      */
-    protected $arguments;
+    protected array $arguments;
 
     /**
      * Initiate the given action.
      *
-     * @param  string  $action
      * @param  mixed  ...$arguments
      *
      * @return mixed
@@ -35,8 +35,6 @@ class Action
     /**
      * Initiate the given action if the given condition is true.
      *
-     * @param $condition
-     * @param  string  $action
      * @param  mixed  ...$arguments
      *
      * @return mixed|void
@@ -55,8 +53,6 @@ class Action
     /**
      * Initiate the action if the given condition is false.
      *
-     * @param $condition
-     * @param  string  $action
      * @param  mixed  ...$arguments
      *
      * @return mixed|void
@@ -75,7 +71,6 @@ class Action
     /**
      * Handle the given action.
      *
-     * @param  string  $action
      *
      * @return mixed|void
      *
@@ -101,16 +96,17 @@ class Action
 
     /**
      * Determine if the action has a `failed()` method defined.
-     *
-     * @param  Actionable  $action
-     *
-     * @return bool
      */
     protected function actionHasFailedMethod(Actionable $action): bool
     {
         return method_exists($action, 'failed');
     }
 
+    /**
+     * Determine if the action has the proper interface.
+     *
+     * @throws Throwable
+     */
     protected function checkActionForInterface($action): void
     {
         throw_unless(
@@ -121,11 +117,6 @@ class Action
 
     /**
      * Dispatch appropriate action event.
-     *
-     * @param  string  $event
-     * @param  Actionable  $action
-     *
-     * @return void
      */
     protected function dispatchEvent(string $event, Actionable $action): void
     {
@@ -139,11 +130,6 @@ class Action
 
     /**
      * Check if the given event exists in the action.
-     *
-     * @param  Actionable  $action
-     * @param  string  $event
-     *
-     * @return bool
      */
     protected function eventExists(Actionable $action, string $event): bool
     {
@@ -154,8 +140,6 @@ class Action
     /**
      * Fire failure event and/or call failed action method if they exist.
      *
-     * @param  Actionable  $action
-     * @param  Throwable  $exception
      *
      * @return mixed
      *
@@ -178,10 +162,6 @@ class Action
 
     /**
      * Check if action has a custom exception.
-     *
-     * @param  Actionable  $action
-     *
-     * @return bool
      */
     protected function hasCustomException(Actionable $action): bool
     {
@@ -191,10 +171,6 @@ class Action
 
     /**
      * Raise the before action event.
-     *
-     * @param  Actionable  $action
-     *
-     * @return void
      */
     protected function raiseBeforeActionEvent(Actionable $action): void
     {
@@ -203,10 +179,6 @@ class Action
 
     /**
      * Raise the after action event.
-     *
-     * @param  Actionable  $action
-     *
-     * @return void
      */
     protected function raiseAfterActionEvent(Actionable $action): void
     {

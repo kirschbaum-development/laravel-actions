@@ -24,8 +24,6 @@ class ActionsServiceProvider extends ServiceProvider
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
     public function register(): void
     {
@@ -35,7 +33,6 @@ class ActionsServiceProvider extends ServiceProvider
     /**
      * Bootstrap any package services.
      *
-     * @return void
      *
      * @throws ReflectionException
      */
@@ -46,12 +43,12 @@ class ActionsServiceProvider extends ServiceProvider
         $this->bootPublishConfig();
 
         $this->bootAutoDiscoverActions();
+
+        $this->bootActionMacro();
     }
 
     /**
      * Get the services provided by the provider.
-     *
-     * @return array
      */
     public function provides(): array
     {
@@ -59,9 +56,17 @@ class ActionsServiceProvider extends ServiceProvider
     }
 
     /**
+     * Boot macro needed for action functionality.
+     */
+    protected function bootActionMacro(): void
+    {
+        Action::macro('getMacro', function (string $name): callable|object {
+            return static::$macros[$name];
+        });
+    }
+
+    /**
      * Auto-discover actions classes.
-     *
-     * @return void
      *
      * @throws ReflectionException
      */
@@ -95,8 +100,6 @@ class ActionsServiceProvider extends ServiceProvider
 
     /**
      * Load console commands for actions.
-     *
-     * @return void
      */
     protected function bootConsoleCommands(): void
     {
@@ -109,8 +112,6 @@ class ActionsServiceProvider extends ServiceProvider
 
     /**
      * Publish action configuration file.
-     *
-     * @return void
      */
     protected function bootPublishConfig(): void
     {
@@ -121,8 +122,6 @@ class ActionsServiceProvider extends ServiceProvider
 
     /**
      * Register merging of configuration file.
-     *
-     * @return void
      */
     protected function registerMergeConfig(): void
     {

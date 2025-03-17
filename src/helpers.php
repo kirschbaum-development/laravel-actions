@@ -6,7 +6,6 @@ if (! function_exists('act')) {
     /**
      * Initiate the given action.
      *
-     * @param  string  $action
      * @param  mixed  ...$arguments
      *
      * @return mixed
@@ -23,8 +22,6 @@ if (! function_exists('act_when')) {
     /**
      * Initiate the given action if the given condition is true.
      *
-     * @param $condition
-     * @param  string  $action
      * @param  mixed  ...$arguments
      *
      * @return mixed
@@ -41,8 +38,6 @@ if (! function_exists('act_unless')) {
     /**
      * Initiate the given action if the given condition is false.
      *
-     * @param $condition
-     * @param  string  $action
      * @param  mixed  ...$arguments
      *
      * @return mixed
