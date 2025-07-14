@@ -14,15 +14,11 @@ class ActionWithCustomException implements Actionable
 
     /**
      * Event to dispatch if action throws an exception.
-     *
-     * @var string
      */
-    public $exception = CustomFailedException::class;
+    public string $exception = CustomFailedException::class;
 
     /**
      * Execute the action.
-     *
-     * @return mixed
      *
      * @throws Throwable
      */

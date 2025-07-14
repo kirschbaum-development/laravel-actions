@@ -3,7 +3,6 @@
 namespace Tests\Fixtures\Actions;
 
 use Kirschbaum\Actions\Traits\CanAct;
-use Throwable;
 
 class ActionWithoutInterface
 {
@@ -11,12 +10,8 @@ class ActionWithoutInterface
 
     /**
      * Execute the action.
-     *
-     * @return mixed
-     *
-     * @throws Throwable
      */
-    public function __invoke()
+    public function __invoke(): void
     {
         // We will never get here.
     }

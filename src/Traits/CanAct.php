@@ -11,7 +11,6 @@ trait CanAct
     /**
      * Handles static method calls by passing them to the Action class.
      *
-     *
      * @return mixed|void
      */
     public static function __callStatic(string $name, array $arguments)

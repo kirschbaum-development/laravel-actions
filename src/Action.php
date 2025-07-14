@@ -2,6 +2,7 @@
 
 namespace Kirschbaum\Actions;
 
+use Exception;
 use Illuminate\Support\Traits\Macroable;
 use Kirschbaum\Actions\Contracts\Actionable;
 use Kirschbaum\Actions\Exceptions\ActionableInterfaceNotFoundException;
@@ -13,6 +14,8 @@ class Action
 
     /**
      * Arguments to pass into the action's constructor.
+     *
+     * @var array<int|string, mixed>
      */
     protected array $arguments;
 
@@ -21,7 +24,7 @@ class Action
      *
      * @param  mixed  ...$arguments
      *
-     * @return mixed
+     * @return mixed|void
      *
      * @throws Throwable
      */
@@ -35,6 +38,9 @@ class Action
     /**
      * Initiate the given action if the given condition is true.
      *
+     * @template TValue
+     *
+     * @param  TValue  $condition
      * @param  mixed  ...$arguments
      *
      * @return mixed|void
@@ -53,6 +59,9 @@ class Action
     /**
      * Initiate the action if the given condition is false.
      *
+     * @template TValue
+     *
+     * @param  TValue  $condition
      * @param  mixed  ...$arguments
      *
      * @return mixed|void
@@ -80,7 +89,11 @@ class Action
     {
         $action = new $action(...$this->arguments);
 
-        $this->checkActionForInterface($action);
+        throw_unless(
+            $action instanceof Actionable,
+            ActionableInterfaceNotFoundException::class
+        );
+
         $this->raiseBeforeActionEvent($action);
 
         try {
@@ -103,20 +116,7 @@ class Action
     }
 
     /**
-     * Determine if the action has the proper interface.
-     *
-     * @throws Throwable
-     */
-    protected function checkActionForInterface($action): void
-    {
-        throw_unless(
-            $action instanceof Actionable,
-            ActionableInterfaceNotFoundException::class
-        );
-    }
-
-    /**
-     * Dispatch appropriate action event.
+     * Dispatch the appropriate action event.
      */
     protected function dispatchEvent(string $event, Actionable $action): void
     {
@@ -140,19 +140,28 @@ class Action
     /**
      * Fire failure event and/or call failed action method if they exist.
      *
-     *
-     * @return mixed
+     * @return mixed|void
      *
      * @throws Throwable
      */
     protected function handleFailure(Actionable $action, Throwable $exception)
     {
         if ($this->actionHasFailedMethod($action)) {
-            return $action->failed($exception);
+            /**
+             * @var callable $callback
+             */
+            $callback = [$action, 'failed'];
+
+            return call_user_func($callback, $exception);
         }
 
         if ($this->hasCustomException($action)) {
-            $exception = $action->exception;
+            $properties = get_object_vars($action);
+
+            /**
+             * @var Exception $exception
+             */
+            $exception = $properties['exception'];
 
             throw new $exception();
         }
@@ -161,7 +170,7 @@ class Action
     }
 
     /**
-     * Check if action has a custom exception.
+     * Check if the action has a custom exception.
      */
     protected function hasCustomException(Actionable $action): bool
     {
@@ -170,7 +179,7 @@ class Action
     }
 
     /**
-     * Raise the before action event.
+     * Raise the "before" action event.
      */
     protected function raiseBeforeActionEvent(Actionable $action): void
     {
@@ -178,7 +187,7 @@ class Action
     }
 
     /**
-     * Raise the after action event.
+     * Raise the "after" action event.
      */
     protected function raiseAfterActionEvent(Actionable $action): void
     {
