@@ -21,7 +21,7 @@
     },
     "require-dev": {
         "laravel/pint": "^1.2",
-        "nunomaduro/larastan": "^2.0",
+        "larastan/larastan": "^2.0",
         "orchestra/testbench": "^7.11.0",
         "phpunit/phpunit": "^9.5.10"
     },
@@ -41,13 +41,16 @@
     },
     "scripts": {
         "larastan": [
-            "./vendor/bin/phpstan analyse"
+            "./vendor/bin/phpstan analyse src"
         ],
         "pint": [
             "./vendor/bin/pint"
         ],
         "pint-check": [
             "./vendor/bin/pint --test"
+        ],
+        "test": [
+            "./vendor/bin/phpunit tests"
         ]
     },
     "config": {

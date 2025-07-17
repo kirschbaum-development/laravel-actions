@@ -167,7 +167,7 @@ jobs:
           composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
           composer require "phpunit/phpunit:${{ matrix.phpunit }}" --no-interaction --no-update
           composer require "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
-          composer require "nunomaduro/larastan:${{ matrix.larastan }}" --no-interaction --no-update
+          composer require "larastan/larastan:${{ matrix.larastan }}" --no-interaction --no-update
           composer update --prefer-dist --no-interaction
           composer dump
 

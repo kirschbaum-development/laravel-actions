@@ -8,7 +8,7 @@ if (! function_exists('act')) {
      *
      * @param  mixed  ...$arguments
      *
-     * @return mixed
+     * @return mixed|void
      *
      * @throws Throwable
      */
@@ -22,9 +22,12 @@ if (! function_exists('act_when')) {
     /**
      * Initiate the given action if the given condition is true.
      *
+     * @template TValue
+     *
+     * @param  TValue  $condition
      * @param  mixed  ...$arguments
      *
-     * @return mixed
+     * @return mixed|void
      *
      * @throws Throwable
      */
@@ -38,9 +41,12 @@ if (! function_exists('act_unless')) {
     /**
      * Initiate the given action if the given condition is false.
      *
+     * @template TValue
+     *
+     * @param  TValue  $condition
      * @param  mixed  ...$arguments
      *
-     * @return mixed
+     * @return mixed|void
      *
      * @throws Throwable
      */

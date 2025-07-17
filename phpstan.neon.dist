@@ -1,0 +1,12 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    paths:
+        - config
+        - src
+
+    level: max
+
+    checkMissingIterableValueType: true
+    treatPhpDocTypesAsCertain: false

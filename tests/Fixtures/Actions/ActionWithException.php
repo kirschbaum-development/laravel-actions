@@ -14,8 +14,6 @@ class ActionWithException implements Actionable
     /**
      * Execute the action.
      *
-     * @return mixed
-     *
      * @throws Throwable
      */
     public function __invoke()

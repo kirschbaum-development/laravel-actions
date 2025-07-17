@@ -11,22 +11,16 @@ class DummyClass implements Actionable
 
     /**
      * Event to dispatch before action starts.
-     *
-     * @var string
      */
-    public $before = '';
+    public string $before = '';
 
     /**
      * Event to dispatch after action completes.
-     *
-     * @var string
      */
-    public $after = '';
+    public string $after = '';
 
     /**
      * Create a new action instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -35,8 +29,6 @@ class DummyClass implements Actionable
 
     /**
      * Execute the action.
-     *
-     * @return mixed
      */
     public function __invoke()
     {

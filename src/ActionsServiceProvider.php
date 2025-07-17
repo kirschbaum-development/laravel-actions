@@ -13,11 +13,11 @@ use Symfony\Component\Finder\Finder;
 class ActionsServiceProvider extends ServiceProvider
 {
     /**
-     * All of the container bindings that should be registered.
+     * All the container bindings that should be registered.
      *
-     * @var array
+     * @var array<class-string<Action>|string,class-string<Action>>
      */
-    public $bindings = [
+    public array $bindings = [
         'actions' => Action::class,
         Action::class => Action::class,
     ];
@@ -49,6 +49,8 @@ class ActionsServiceProvider extends ServiceProvider
 
     /**
      * Get the services provided by the provider.
+     *
+     * @return list<class-string<Action>>
      */
     public function provides(): array
     {
@@ -61,6 +63,9 @@ class ActionsServiceProvider extends ServiceProvider
     protected function bootActionMacro(): void
     {
         Action::macro('getMacro', function (string $name): callable|object {
+            /**
+             * @phpstan-ignore-next-line
+             */
             return static::$macros[$name];
         });
     }
@@ -72,9 +77,14 @@ class ActionsServiceProvider extends ServiceProvider
      */
     protected function bootAutoDiscoverActions(): void
     {
-        $paths = collect(config('laravel-actions.paths'))
+        /**
+         * @var list<string> $configPaths
+         */
+        $configPaths = config('laravel-actions.paths');
+
+        $paths = collect($configPaths)
             ->unique()
-            ->filter(function ($path) {
+            ->filter(function (string $path): bool {
                 return is_dir($path);
             });
 
@@ -82,7 +92,12 @@ class ActionsServiceProvider extends ServiceProvider
             return;
         }
 
-        foreach ((new Finder())->in($paths->toArray())->files() as $action) {
+        /**
+         * @var list<string> $dirs
+         */
+        $dirs = $paths->toArray();
+
+        foreach ((new Finder())->in($dirs)->files() as $action) {
             if (preg_match('#(namespace)(\\s+)([A-Za-z0-9\\\\]+?)(\\s*);#sm', $action->getContents(), $namespaceMatches)) {
                 $action = (string) Str::of($namespaceMatches[3])
                     ->finish('\\')
